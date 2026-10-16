@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Ejemplos Prof. Ernesto Arbulú</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body class="bg-white">
+<div class="container py-5" style="max-width: 800px;">
+    <div class="card shadow-sm bg-light">
+        <div class="card-body p-4">
+
+            <h1 class="text-center fw-bold mb-4">Nueva mascota</h1>
+
+            <form th:action="@{/mascota/guardar}" th:object="${mascota}" method="post">
+
+                <div class="mb-3">
+                    <label class="form-label">Nombre de mascota</label>
+                    <input type="text" th:field="*{nomMascota}" class="form-control"
+                           maxlength="50" required>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Especie</label>
+                        <select th:field="*{especie}" class="form-select" required>
+                            <option value="">--seleccione--</option>
+                            <option value="C">Canino</option>
+                            <option value="F">Felino</option>
+                            <option value="A">Ave</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Raza</label>
+                        <input type="text" th:field="*{raza}" class="form-control"
+                               maxlength="50" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Dueño</label>
+                    <select th:field="*{dueno.idDueno}" class="form-select" required>
+                        <option value="">--seleccione--</option>
+                        <option th:each="d : ${lstDueno}"
+                                th:value="${d.idDueno}"
+                                th:text="${d.nomDueno + ' ' + d.apeDueno}"></option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Fecha de nacimiento</label>
+                    <input type="date" th:field="*{fechaNac}" class="form-control" required>
+                </div>
+
+                <div class="d-flex justify-content-center gap-3">
+                    <a th:href="@{/mascota/listado}" class="btn btn-outline-dark px-4">
+                        <i class="bi bi-arrow-left me-2"></i>REGRESAR
+                    </a>
+                    <button type="submit" class="btn btn-outline-dark px-4">
+                        <i class="bi bi-floppy me-2"></i>GUARDAR
+                    </button>
+                    <button type="reset" class="btn btn-outline-dark px-4">
+                        <i class="bi bi-eraser me-2"></i>LIMPIAR
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
